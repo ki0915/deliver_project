@@ -16,10 +16,16 @@
       </b-row>
     </section-card>
     <section-card style="margin-top: 15px">
-      <horizontal-grid :title="'배민1에 새로 들어왔어요'"></horizontal-grid>
+      <horizontal-grid
+        :title="'배민1에 새로 들어왔어요'"
+        :storeList="recommendStoreList"
+      ></horizontal-grid>
     </section-card>
     <section-card>
-      <store-big-card-grid></store-big-card-grid>
+      <store-big-card-grid
+        :storeList="storeList"
+        v-on:store-card-clicked="onStoreClicked"
+      ></store-big-card-grid>
     </section-card>
   </div>
 </template>
@@ -33,6 +39,8 @@ import SectionCard from "@/components/SectionCard.vue";
 import HorizontalGrid from "@/components/HorizontalGrid.vue";
 import StoreBigCardGrid from "@/components/StoreBigCardGrid.vue";
 import { defineComponent } from "vue";
+import { useDispath, useSelector } from "../helpers";
+import { selectStoreInfo } from "@/store";
 
 export default defineComponent({
   components: {
@@ -48,6 +56,12 @@ export default defineComponent({
 
   data() {
     return {
+      recommendStoreList: useSelector((state) => state.orders).value
+        .recommendStoreList,
+      storeList: useSelector((state) => state.orders).value.storeList,
+      dispatch: useDispath(),
+
+      focusedStore: useSelector((state) => state.orders).value.focusedStore,
       menuList: [
         {
           title: "1인분",
@@ -118,6 +132,14 @@ export default defineComponent({
         },
       ],
     };
+  },
+
+  methods: {
+    onStoreClicked(store: any) {
+      console.log("store", store);
+      console.log(this.dispatch(selectStoreInfo({ idx: store.idx })));
+      console.log("focusedStore", this.focusedStore);
+    },
   },
 });
 </script>
