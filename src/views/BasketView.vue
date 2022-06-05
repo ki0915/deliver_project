@@ -76,6 +76,7 @@ import InAppTopBar from "@/components/InAppTopBar.vue";
 import SectionCard from "@/components/SectionCard.vue";
 import BasketItem from "@/components/BasketItem.vue";
 import PayCol from "@/components/PayCol.vue";
+
 export default defineComponent({
   components: {
     InAppTopBar,
@@ -108,12 +109,14 @@ export default defineComponent({
       deliveryTip: 2900,
     };
   },
+
   mounted() {
     console.log(
       "test",
       useSelector((state) => state.orders)
     );
   },
+
   methods: {
     startPayment() {
       this.dispatch(
@@ -122,6 +125,7 @@ export default defineComponent({
         })
       );
     },
+
     onItemDelete(id: string) {
       console.log("del", id);
       const orderItem = this.orderListTest.find((item) => item.id == id);

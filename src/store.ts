@@ -16,7 +16,7 @@ export const orderSlice = createSlice({
   },
   reducers: {
     initPayment: (state: { IMP: any }, action: any) => {
-      state.IMP.init("imp45780593");
+      state.IMP.init("imp92079596");
     },
     requestPayment: (state: any, action: { payload: { cost: number } }) => {
       console.log("req pay", state.IMP);

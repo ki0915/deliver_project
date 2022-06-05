@@ -2,7 +2,7 @@
   <div style="margin-bottom: 15px">
     <b-row style="margin-bottom: 15px">
       <b-col>
-        <div>치즈카츠(첫주문추천메뉴)</div>
+        <div>{{ id }}</div>
       </b-col>
       <b-col style="text-align: right">
         <BIconXLg style="cursor: pointer" @click="onDeleteClicked()" />
@@ -28,12 +28,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
 export default defineComponent({
   name: "BasketItem",
+
   props: {
     id: String,
     cost: Number,
   },
+
   methods: {
     onDeleteClicked() {
       this.$emit("on-delete", this.id);
@@ -52,6 +55,7 @@ div.food-img {
   background-repeat: no-repeat;
   border-radius: 8px;
 }
+
 @media (min-width: 768px) {
   div.food-img {
     width: 150px;
