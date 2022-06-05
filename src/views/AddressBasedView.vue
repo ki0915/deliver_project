@@ -33,6 +33,7 @@ import SectionCard from "@/components/SectionCard.vue";
 import HorizontalGrid from "@/components/HorizontalGrid.vue";
 import StoreBigCardGrid from "@/components/StoreBigCardGrid.vue";
 import { defineComponent } from "vue";
+
 export default defineComponent({
   components: {
     InAppTopBar,
@@ -44,6 +45,7 @@ export default defineComponent({
     StoreBigCardGrid,
   },
   name: "AddressBasedView",
+
   data() {
     return {
       menuList: [

@@ -3,21 +3,23 @@
     <b-col style="text-align: left">
       <span
         style="
-          transform: translateY(50%);
+          transform: translateY(20%);
           display: inline-block;
-          font-size: 1.2em;
+          font-size: 1.6em;
           font-weight: bold;
           cursor: pointer;
         "
+        v-bind:style="{ color: color }"
       >
         <BIconArrowLeftShort />
       </span>
     </b-col>
     <b-col>
       <address-selector-btn
-        style="transform: translateY(50%)"
+        v-if="address"
+        style="transform: translateY(70%)"
         :address="address"
-        :color="'black'"
+        :color="color"
       ></address-selector-btn>
     </b-col>
     <b-col></b-col>
@@ -27,13 +29,20 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import AddressSelectorBtn from "./AddressSelectorBtn.vue";
+
 export default defineComponent({
   name: "InAppTopBar",
+
   components: {
     AddressSelectorBtn,
   },
+
   props: {
     address: String,
+    color: {
+      type: String,
+      default: "black",
+    },
   },
 });
 </script>

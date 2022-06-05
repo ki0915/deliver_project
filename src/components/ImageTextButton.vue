@@ -7,8 +7,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
 export default defineComponent({
   name: "ImageTextButton",
+
   props: {
     title: String,
     imgUrl: String,
@@ -33,6 +35,7 @@ div.contains {
   padding: 10px;
   display: inline-block;
 }
+
 @media (min-width: 768px) {
   img {
     width: 64px;

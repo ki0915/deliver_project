@@ -11,11 +11,7 @@
             :lg="card.lg"
             :xl="card.xl"
           >
-            <CardButton
-              :title="card.title"
-              :msg="card.msg"
-              @click="$router.push('/address-based')"
-            ></CardButton>
+            <CardButton :title="card.title" :msg="card.msg"></CardButton>
           </b-col>
         </template>
       </b-row>
@@ -27,14 +23,15 @@
 import { defineComponent } from "vue";
 import CardButton from "../components/CardButton.vue";
 import TopBar from "../components/TopBar.vue";
-import AddressBasedViewVue from "./AddressBasedView.vue";
 // import { BIconBatteryFull } from "bootstrap-icons-vue";
+
 export default defineComponent({
   components: {
     // BIconBatteryFull,
     CardButton,
     TopBar,
   },
+
   data() {
     return {
       cardList: [

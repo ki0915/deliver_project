@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
 export default defineComponent({
   name: "CardButton",
   props: {
@@ -27,21 +28,25 @@ export default defineComponent({
   padding: 15px;
   cursor: pointer;
 }
+
 .card-title {
   font-weight: bold;
   font-family: "BaeminHannaPro";
   font-size: 1.25em;
 }
+
 .card-descript {
   max-width: 70%;
   word-break: break-word;
   white-space: pre-wrap;
   font-size: 0.8em;
 }
+
 @media (min-width: 768px) {
   .card-title {
     font-size: 1.4em;
   }
+
   .card-descript {
     font-size: 1em;
   }

@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
 export default defineComponent({
   name: "NavBarBtn",
   props: {
@@ -17,6 +18,7 @@ export default defineComponent({
 div {
   cursor: pointer;
 }
+
 div.focused {
   display: inline-block;
   padding: 10px 15px;
@@ -26,6 +28,7 @@ div.focused {
   border-radius: 15px;
   font-family: "BaeminHannaPro";
 }
+
 div.normal {
   display: inline-block;
   padding: 10px 15px;

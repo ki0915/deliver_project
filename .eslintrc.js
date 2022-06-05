@@ -19,7 +19,6 @@ module.exports = {
       "error",
       {
         endOfLine: "auto",
-        htmlWhitespaceSensitiviy: "ignore",
       },
     ],
   },

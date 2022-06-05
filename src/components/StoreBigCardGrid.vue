@@ -11,6 +11,7 @@
 <script lang="ts">
 import StoreBigCard from "./StoreBigCard.vue";
 import { defineComponent } from "vue";
+
 export default defineComponent({
   name: "StoreBigCardGrid",
   components: {

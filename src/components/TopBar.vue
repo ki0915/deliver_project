@@ -26,9 +26,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
 import AddressSelectorBtn from "./AddressSelectorBtn.vue";
+
 export default defineComponent({
   name: "TopBar",
+
   components: {
     AddressSelectorBtn,
   },

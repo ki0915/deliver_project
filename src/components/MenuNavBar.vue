@@ -23,11 +23,14 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import NavBarBtn from "./NavBarBtn.vue";
+
 export default defineComponent({
   name: "MenuNavBar",
+
   components: {
     NavBarBtn,
   },
+
   data() {
     return {
       activeNav: "배민1",

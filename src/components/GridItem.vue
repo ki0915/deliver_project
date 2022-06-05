@@ -17,6 +17,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
 export default defineComponent({
   name: "GridItem",
   props: {
@@ -34,10 +35,12 @@ div.grid-item {
   width: 200px;
   display: inline-block;
 }
+
 img {
   border-radius: 15px;
   width: 176px;
 }
+
 span.store-name {
   width: 130px;
   overflow-x: hidden;
@@ -46,10 +49,12 @@ span.store-name {
   max-width: 130px;
   display: inline-block;
 }
+
 span.star-score {
   display: inline-block;
   transform: translateY(-12px);
 }
+
 @media (min-width: 768px) {
   img {
     width: 192px;

@@ -31,6 +31,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import GridItem from "./GridItem.vue";
+
 export default defineComponent({
   name: "HorizontalGrid",
   props: {
@@ -39,6 +40,7 @@ export default defineComponent({
   components: {
     GridItem,
   },
+
   data() {
     return {
       storeList: [

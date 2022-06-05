@@ -41,5 +41,3 @@ createApp(App)
   .use(BootstrapIconsPlugin)
   .use(createRedux(store))
   .mount("#app");
-
-//뷰는 메인에다 import 하면 다른 곳에서 해당 import 파일 다 쓸 수 있다.

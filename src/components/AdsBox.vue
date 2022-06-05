@@ -1,6 +1,7 @@
 <template>
   <b-row>
     <b-col class="ads-img">
+      <slot></slot>
       <div class="ads-text">11 / 13</div>
     </b-col>
   </b-row>
@@ -8,6 +9,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+
 export default defineComponent({
   name: "AdsBox",
 });
@@ -22,6 +24,7 @@ export default defineComponent({
   height: 250px;
   position: relative;
 }
+
 .ads-text {
   position: absolute;
   right: 10px;
@@ -33,10 +36,12 @@ export default defineComponent({
   font-weight: bold;
   font-size: 0.8em;
 }
+
 @media (min-width: 768px) {
   .ads-img {
     height: 300px;
   }
+
   .ads-text {
     font-size: 1em;
   }
