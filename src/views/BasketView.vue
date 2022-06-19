@@ -10,7 +10,7 @@
     <section-card style="text-align: left">
       <b-row>
         <b-col>
-          <h4>하루엔소쿠 길동점</h4>
+          <h4>{{ orders.lastEnteredStoreName || "Untitled" }}</h4>
         </b-col>
       </b-row>
       <hr />
@@ -26,7 +26,11 @@
         </b-col>
       </b-row>
       <hr />
-      <b-row style="text-align: center; font-weight: bold">
+      <b-row
+        style="text-align: center; font-weight: bold; cursor: pointer"
+        v-if="orders.lastEnteredStoreName && orders.lastEnteredStoreID !== ''"
+        @click="$router.push('/store/' + orders.lastEnteredStoreID)"
+      >
         <b-col> <BIconPlusLg /> 더 담으러 가기 </b-col>
       </b-row>
     </section-card>
@@ -128,6 +132,7 @@ export default defineComponent({
       this.dispatch(
         requestPayment({
           cost: this.paymentCost,
+          storeName: this.orders.lastEnteredStoreName,
         })
       );
     },

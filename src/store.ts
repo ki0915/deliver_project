@@ -47,9 +47,26 @@ export const orderSlice = createSlice({
     IMP: (window as any).IMP,
     recommendStoreList: [] as FoodStore[],
     storeList: storeList,
-    focusedStore: {},
+    focusedStore: {} as FoodStore,
+    lastEnteredStoreName: "",
+    lastEnteredStoreID: 0,
   },
   reducers: {
+    setLastEnteredStoreName: (
+      state: { lastEnteredStoreName: string; lastEnteredStoreID: number },
+      action: { payload: { storeName: string; storeID: number } }
+    ) => {
+      state.lastEnteredStoreName = action.payload.storeName;
+      state.lastEnteredStoreID = action.payload.storeID;
+    },
+    setFocusedStore: (
+      state: { focusedStore: FoodStore },
+      action: { payload: { storeData: FoodStore } }
+    ) => {
+      state.focusedStore = {
+        ...action.payload.storeData,
+      };
+    },
     setStoreList: (state: any, action: { payload: { storeListData: any } }) => {
       console.log("cost", action.payload.storeListData);
       state.recommendStoreList.length = 0;
@@ -58,6 +75,7 @@ export const orderSlice = createSlice({
         const deliveryMin = getRandomInt(0, 50) * 100;
         state.recommendStoreList.push({
           idx: guid(),
+          crtfc_upso_mgt_sno: store.crtfc_upso_mgt_sno,
           storeName: store.upso_nm,
           score: Number(getRandomArbitrary(0, 5).toFixed(2)),
           deliveryMin: deliveryMin,
@@ -91,15 +109,18 @@ export const orderSlice = createSlice({
     initPayment: (state: { IMP: any }, action: any) => {
       state.IMP.init("imp92079596");
     },
-    requestPayment: (state: any, action: { payload: { cost: number } }) => {
+    requestPayment: (
+      state: any,
+      action: { payload: { cost: number; storeName: string } }
+    ) => {
       console.log("req pay", state.IMP);
       state.IMP.request_pay(
         {
           // param
           pg: "html5_inicis",
           pay_method: "card",
-          merchant_uid: "ORD20180131-0000014",
-          name: "노르웨이 회전 의자",
+          merchant_uid: guid(),
+          name: `[${action.payload.storeName}] 배달의 민족 주문`,
           amount: action.payload.cost,
           buyer_email: "gildong@gmail.com",
           buyer_name: "홍길동",
@@ -186,6 +207,8 @@ export const {
   removeMenu,
   selectStoreInfo,
   setStoreList,
+  setFocusedStore,
+  setLastEnteredStoreName,
 } = orderSlice.actions;
 
 export const store = configureStore({
