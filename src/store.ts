@@ -1,5 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-import { OrderMenuModel } from "./interface/order.model";
+import { FoodMenu, FoodStore, OrderMenuModel } from "./interface/order.model";
 import { recommendStoreList, storeList } from "./db";
 
 // https://velog.io/@gsh723/%EC%83%81%ED%83%9C%EA%B4%80%EB%A6%AC-Redux-Toolkit-%EC%9D%B4%EB%9E%80
@@ -30,16 +30,64 @@ function guid() {
   );
 }
 
+function getRandomArbitrary(min: number, max: number) {
+  return Math.random() * (max - min) + min;
+}
+
+function getRandomInt(min: number, max: number) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+}
+
 export const orderSlice = createSlice({
   name: "orders",
   initialState: {
     orderList: [] as OrderMenuModel[],
     IMP: (window as any).IMP,
-    recommendStoreList: recommendStoreList,
+    recommendStoreList: [] as FoodStore[],
     storeList: storeList,
     focusedStore: {},
   },
   reducers: {
+    setStoreList: (state: any, action: { payload: { storeListData: any } }) => {
+      console.log("cost", action.payload.storeListData);
+      state.recommendStoreList.length = 0;
+      Object.keys(action.payload.storeListData).forEach((key: string) => {
+        const store = action.payload.storeListData[key];
+        const deliveryMin = getRandomInt(0, 50) * 100;
+        state.recommendStoreList.push({
+          idx: guid(),
+          storeName: store.upso_nm,
+          score: Number(getRandomArbitrary(0, 5).toFixed(2)),
+          deliveryMin: deliveryMin,
+          deliveryMax: deliveryMin + getRandomInt(0, 50) * 100,
+          imgUrl:
+            "https://picsum.photos/200/200?_t=" + getRandomInt(0, 1000000),
+          menuList: (store.food_menu || "").split(",").map((name: string) => {
+            return {
+              name: name || "Untitled",
+              cost: getRandomInt(0, 50) * 100,
+            } as FoodMenu;
+          }),
+        } as FoodStore);
+      });
+      console.log("len", state.recommendStoreList.length);
+      // state.storeList = action.payload.storeListData.map(
+      //   (store: { upso_nm: string; food_menu: string }) => {
+      //     return {
+      //       idx: guid(),
+      //       storeName: store.upso_nm,
+      //       score: getRandomArbitrary(0, 5),
+      //       deliveryMin: getRandomInt(0, 5000),
+      //       deliveryMax: getRandomInt(0, 5000),
+      //       imgUrl:
+      //         "https://byline.network/wp-content/uploads/2020/01/baemin-300x300.png",
+      //       menuList: (store.food_menu || "").split(","),
+      //     };
+      //   }
+      // );
+    },
     initPayment: (state: { IMP: any }, action: any) => {
       state.IMP.init("imp92079596");
     },
@@ -137,6 +185,7 @@ export const {
   modifyMenu,
   removeMenu,
   selectStoreInfo,
+  setStoreList,
 } = orderSlice.actions;
 
 export const store = configureStore({

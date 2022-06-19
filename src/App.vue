@@ -8,6 +8,7 @@
   <b-container class="bv-example-row">
     <router-view />
   </b-container>
+  <div ref="map" style="width: 500px; height: 400px"></div>
 </template>
 
 <script lang="ts">
