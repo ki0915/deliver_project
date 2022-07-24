@@ -1,32 +1,40 @@
 <template>
   <div>
-    <in-app-top-bar :address="'방이동'"></in-app-top-bar>
-    <menu-nav-bar></menu-nav-bar>
-    <ads-box></ads-box>
-    <section-card>
-      <b-row>
-        <b-col>
-          <image-text-button
-            v-for="menu in menuList"
-            :key="menu"
-            :title="menu.title"
-            :imgUrl="menu.imgUrl"
-          ></image-text-button>
-        </b-col>
-      </b-row>
-    </section-card>
-    <section-card style="margin-top: 15px">
-      <horizontal-grid
-        :title="'배민1에 새로 들어왔어요'"
-        :storeList="orders.recommendStoreList"
-      ></horizontal-grid>
-    </section-card>
-    <section-card>
-      <store-big-card-grid
-        :storeList="storeList"
-        v-on:store-card-clicked="onStoreClicked"
-      ></store-big-card-grid>
-    </section-card>
+    <in-app-top-bar :address="'방이동'" :url="'/'"></in-app-top-bar>
+    <menu-nav-bar v-model:activeNav="activeNav"></menu-nav-bar>
+    <template v-if="activeNav == '포장'">
+      <kakao-map-component
+        :addressGeoData="orders.userGeoData"
+        :foodStoreList="orders.recommendStoreList"
+      ></kakao-map-component>
+    </template>
+    <template v-if="activeNav == '배민1'">
+      <ads-box></ads-box>
+      <section-card>
+        <b-row>
+          <b-col>
+            <image-text-button
+              v-for="menu in menuList"
+              :key="menu"
+              :title="menu.title"
+              :imgUrl="menu.imgUrl"
+            ></image-text-button>
+          </b-col>
+        </b-row>
+      </section-card>
+      <section-card style="margin-top: 15px">
+        <horizontal-grid
+          :title="'배민1에 새로 들어왔어요'"
+          :storeList="orders.recommendStoreList"
+        ></horizontal-grid>
+      </section-card>
+      <section-card>
+        <store-big-card-grid
+          :storeList="storeList"
+          v-on:store-card-clicked="onStoreClicked"
+        ></store-big-card-grid>
+      </section-card>
+    </template>
   </div>
 </template>
 
@@ -38,13 +46,9 @@ import ImageTextButton from "@/components/ImageTextButton.vue";
 import SectionCard from "@/components/SectionCard.vue";
 import HorizontalGrid from "@/components/HorizontalGrid.vue";
 import StoreBigCardGrid from "@/components/StoreBigCardGrid.vue";
+import KakaoMapComponent from "@/components/KakaoMapComponent.vue";
 import { defineComponent } from "vue";
 import { useDispath, useSelector } from "../helpers";
-import {
-  selectStoreInfo,
-  setFocusedStore,
-  setLastEnteredStoreName,
-} from "@/store";
 import { FoodStore } from "@/interface/order.model";
 
 export default defineComponent({
@@ -56,11 +60,13 @@ export default defineComponent({
     SectionCard,
     HorizontalGrid,
     StoreBigCardGrid,
+    KakaoMapComponent,
   },
   name: "AddressBasedView",
 
   data() {
     return {
+      activeNav: this.$route.query.tab || "배민1",
       orders: useSelector((state) => state.orders),
       recommendStoreList: useSelector((state) => state.orders).value
         .recommendStoreList,
@@ -139,6 +145,9 @@ export default defineComponent({
       // console.log(this.dispatch(selectStoreInfo({ idx: storeData.idx })));
       // console.log("focusedStore", this.focusedStore);
       // this.dispatch(setFocusedStore({ storeData }));
+    },
+    onNavChanged(nav: string) {
+      console.log("nav", nav);
     },
   },
 });

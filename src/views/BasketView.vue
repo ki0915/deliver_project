@@ -63,6 +63,7 @@
     <b-row align-h="end">
       <b-col style="text-align: right" cols="12" md="6" lg="3">
         <b-button
+          v-if="orders.orderList"
           :disabled="orders.orderList.length <= 0"
           class="payment-btn"
           @click="startPayment()"
@@ -97,7 +98,7 @@ export default defineComponent({
     return {
       dispatch: useDispath(),
       orders: useSelector((state) => state.orders),
-      orderList: useSelector((state) => state.orders).value.orderList,
+      // orderList: useSelector((state) => state.orders).value.orderList,
       orderListTest: [
         {
           id: "test1",
@@ -149,11 +150,14 @@ export default defineComponent({
 
   computed: {
     sumCost(): number {
+      if (!this.orders.orderList) {
+        return 0;
+      }
       return this.orders.orderList.reduce((a, b) => a + b.cost, 0);
     },
-    orderListRedux(): any {
-      return this.orderList;
-    },
+    // orderListRedux(): any {
+    //   return this.orderList;
+    // },
     paymentCost(): number {
       return this.sumCost + this.deliveryTip;
     },

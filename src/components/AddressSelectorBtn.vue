@@ -20,6 +20,7 @@ import { KakaoMap } from "../lib/kakaomap";
 import { DatabaseDao } from "../lib/realtime-database";
 import { useDispath, useSelector } from "../helpers";
 import { setStoreList } from "@/store";
+import { AddressLatLong } from "@/interface/geo.model";
 
 export default defineComponent({
   name: "AddressSelectBtn",
@@ -58,9 +59,9 @@ export default defineComponent({
 
     loadLastLocation() {
       this.addrStr =
-        localStorage.getItem("addressFull") || "서울 송파구 방이동";
+        localStorage.getItem("addressFull") || "서울 중구 태평로2가";
       this.region_2depth_name =
-        localStorage.getItem("region_2depth_name") || "송파구";
+        localStorage.getItem("region_2depth_name") || "중구";
       console.log("add", this.addrStr, this.region_2depth_name);
     },
 
@@ -73,7 +74,7 @@ export default defineComponent({
       });
     },
 
-    onAddressLoaded(addressInfo: any) {
+    onAddressLoaded(addressInfo: AddressLatLong) {
       console.log("addressInfo", addressInfo);
       this.loadFilteredStoreList(addressInfo.region_2depth_name);
       this.addrStr = `${addressInfo.region_1depth_name} ${addressInfo.region_2depth_name} ${addressInfo.region_3depth_name}`;

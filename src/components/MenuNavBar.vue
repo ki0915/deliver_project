@@ -14,6 +14,7 @@
           :key="nav"
           :title="nav"
           :isActive="activeNav == nav"
+          @click="onMenuNavClicked(nav)"
         ></nav-bar-btn>
       </b-col>
     </b-row>
@@ -31,9 +32,15 @@ export default defineComponent({
     NavBarBtn,
   },
 
+  props: {
+    activeNav: {
+      type: String,
+      default: "배민1",
+    },
+  },
+
   data() {
     return {
-      activeNav: "배민1",
       navList: [
         "배민1",
         "배달",
@@ -45,6 +52,12 @@ export default defineComponent({
         "전국별미",
       ],
     };
+  },
+
+  methods: {
+    onMenuNavClicked(nav: string) {
+      this.$emit("update:activeNav", nav);
+    },
   },
 });
 </script>
