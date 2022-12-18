@@ -1,8 +1,8 @@
 import { shallowMount } from "@vue/test-utils";
-import BasketView from "@/views/BasketView.vue";
+import BasketView from "././views/BasketView.vue";
 
 describe("BasketView.vue", () => {
-  it("Calc sum cost of orders", () => {
+  it("Calc sum cost of orders", () => {s
     const wrapper = shallowMount(BasketView, {
       data: function () {
         return {

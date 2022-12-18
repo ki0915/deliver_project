@@ -5,6 +5,7 @@
   "description": "배달의 민족 Vue.js 클론코딩",
   "author": "",
   "scripts": {
+    
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
